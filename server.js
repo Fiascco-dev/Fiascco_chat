@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 // YENİ: Hakaret Filtresi Ayarları (GLOBAL)
 let isProfanityFilterEnabled = true; // Başlangıçta filtre AÇIK
-const profanityList = ['oe','oç' 'amk','aq','nigga','nigger','aw','orospu','orospu evladı','orospu çocuğu','ananı sikiyim','sikiyim'];
+const profanityList = ['oe','oç','amk','aq','nigga','nigger','aw','orospu','orospu evladı','orospu çocuğu','ananı sikiyim','sikiyim'];
 const replacement = '***'; 
 
 // YENİ: ADMIN AYARLARI
