@@ -1,39 +1,4 @@
 /* ------------------------------------------- */
-/* MOBİL CİHAZ UYUMLULUĞU (RESPONSIVE FIX) */
-/* ------------------------------------------- */
-
-/* Form ve butonları mobil görünümde daha büyük ve daha rahat hale getirir */
-@media (max-width: 600px) {
-    /* Genel ayarlamalar */
-    #form {
-        height: auto; /* Yüksekliği içeriğe göre ayarla */
-        padding: 8px;
-    }
-    
-    /* Mesaj giriş alanı */
-    #input {
-        padding: 12px; /* İç boşluğu artır */
-        font-size: 1.1em; /* Yazı boyutunu artır */
-        margin-right: 8px;
-    }
-
-    /* Gönder butonu */
-    #form > button {
-        padding: 12px 15px; /* Buton yüksekliğini artır */
-        font-size: 1em;
-    }
-
-    /* Kullanıcı adı girişi */
-    #username-prompt input {
-        width: 80%; /* Mobil ekranda daha geniş yap */
-        max-width: 300px; 
-    }
-}
-
-
-
-
-/* ------------------------------------------- */
 /* GENEL SIFIRLAMA VE ARKA PLAN (Fiascco Dark Theme) */
 /* ------------------------------------------- */
 :root {
@@ -47,11 +12,11 @@
 /* HTML ve BODY etiketlerinin stilini temizle */
 html, body {
     height: 100%;
-    overflow: auto; /* Sayfanın kaydırılmasını sağlar */
+    overflow: auto; 
 }
 body {
   margin: 0;
-  padding-bottom: 3.5rem; /* Form yüksekliği kadar boşluk bırak */
+  padding-bottom: 3.5rem; 
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -64,7 +29,7 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  word-wrap: break-word; /* Uzun kelimeleri keser */
+  word-wrap: break-word; 
 }
 #messages > li {
   padding: 10px 15px;
@@ -141,7 +106,7 @@ body {
   text-align: center;
 }
 #username-prompt h1 {
-    color: var(--primary-color); /* Yeşil başlık */
+    color: var(--primary-color); 
     margin-bottom: 5px;
     font-size: 2.5em;
 }
@@ -165,7 +130,7 @@ body {
     margin-top: 20px;
     border: none;
     border-radius: 5px;
-    background: var(--primary-color); /* Yeşil buton */
+    background: var(--primary-color); 
     color: white;
     cursor: pointer;
     font-weight: bold;
@@ -173,4 +138,34 @@ body {
 }
 #username-prompt button:hover {
     background: #388e3c;
+}
+
+/* ------------------------------------------- */
+/* MOBİL CİHAZ UYUMLULUĞU (RESPONSIVE FIX) */
+/* ------------------------------------------- */
+@media (max-width: 600px) {
+    /* Genel ayarlamalar */
+    #form {
+        height: auto; 
+        padding: 8px;
+    }
+    
+    /* Mesaj giriş alanı */
+    #input {
+        padding: 12px; 
+        font-size: 1.1em; 
+        margin-right: 8px;
+    }
+
+    /* Gönder butonu */
+    #form > button {
+        padding: 12px 15px; 
+        font-size: 1em;
+    }
+
+    /* Kullanıcı adı girişi */
+    #username-prompt input {
+        width: 80%; 
+        max-width: 300px; 
+    }
 }
