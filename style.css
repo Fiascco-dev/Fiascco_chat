@@ -1,4 +1,39 @@
 /* ------------------------------------------- */
+/* MOBİL CİHAZ UYUMLULUĞU (RESPONSIVE FIX) */
+/* ------------------------------------------- */
+
+/* Form ve butonları mobil görünümde daha büyük ve daha rahat hale getirir */
+@media (max-width: 600px) {
+    /* Genel ayarlamalar */
+    #form {
+        height: auto; /* Yüksekliği içeriğe göre ayarla */
+        padding: 8px;
+    }
+    
+    /* Mesaj giriş alanı */
+    #input {
+        padding: 12px; /* İç boşluğu artır */
+        font-size: 1.1em; /* Yazı boyutunu artır */
+        margin-right: 8px;
+    }
+
+    /* Gönder butonu */
+    #form > button {
+        padding: 12px 15px; /* Buton yüksekliğini artır */
+        font-size: 1em;
+    }
+
+    /* Kullanıcı adı girişi */
+    #username-prompt input {
+        width: 80%; /* Mobil ekranda daha geniş yap */
+        max-width: 300px; 
+    }
+}
+
+
+
+
+/* ------------------------------------------- */
 /* GENEL SIFIRLAMA VE ARKA PLAN (Fiascco Dark Theme) */
 /* ------------------------------------------- */
 :root {

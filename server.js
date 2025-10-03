@@ -1,14 +1,32 @@
 // server.js
+
 const express = require('express');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server);
+const path = require('path'); // Dosya yolu manipülasyonu için path modülünü dahil et
 
-// Ana sayfaya bir HTML dosyası gönder.
+// Render'ın dinamik portunu kullan, yoksa varsayılan olarak 3000'i kullan
+const PORT = process.env.PORT || 3000; 
+
+// KRİTİK DÜZELTME: Bu satır, Express'e mevcut dizindeki (index.html, style.css, vs.) 
+// TÜM dosyaları tarayıcılara sunmasını söyler. Bu, CSS'in yüklenmesini sağlar.
+app.use(express.static(path.join(__dirname)));
+
+// Socket.IO'yu kur ve Render/Prodüksiyon için CORS ayarlarını yap
+const io = new Server(server, {
+  // Bu ayar, tarayıcıların (özellikle mobil) bağlantı kurmasını garanti eder.
+  cors: {
+    origin: "*", 
+    methods: ["GET", "POST"]
+  }
+});
+
+// Ana sayfa isteği geldiğinde index.html dosyasını gönderir.
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  // path.join ile dosya yolunu güvenli bir şekilde oluştur
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Socket.IO bağlantısı kurulduğunda çalışacak kısım
@@ -27,7 +45,7 @@ io.on('connection', (socket) => {
   });
 });
 
-// Sunucuyu 3000 portunda başlat
-server.listen(3000, () => {
-  console.log('Sunucu çalışıyor: http://localhost:3000');
+// Sunucuyu başlat
+server.listen(PORT, () => {
+  console.log(`Fiascco Sunucusu çalışıyor: Port ${PORT}`);
 });

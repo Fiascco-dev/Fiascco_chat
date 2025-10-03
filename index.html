@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Basit Sohbet Odası</title>
-  <style>
-    body { margin: 0; padding-bottom: 3rem; font-family: sans-serif; }
-    #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
-    #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
-    #input:focus { outline: none; }
-    #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
-    #messages { list-style-type: none; margin: 0; padding: 0; }
-    #messages > li { padding: 0.5rem 1rem; }
-    #messages > li:nth-child(odd) { background: #efefef; }
-  </style>
+  <title>FIASCCO | Realtime Chat</title>
+<link rel="stylesheet" href="/style.css"> 
 </head>
 <body>
+  
+  <div id="username-prompt">
+      <h1>FIASCCO</h1>
+      <h2>Gerçek zamanlı sohbete katılın.</h2>
+      <input id="username-input" placeholder="Kullanıcı Adınızı Girin" autofocus />
+      <button id="username-submit">Sohbete Başla</button>
+  </div>
+  
   <ul id="messages"></ul>
   <form id="form" action="">
     <input id="input" autocomplete="off" placeholder="Mesajınızı yazın..." /><button>Gönder</button>
@@ -22,27 +21,59 @@
   <script src="/socket.io/socket.io.js"></script>
 
   <script>
-    var socket = io(); // Sunucu ile bağlantı kur
+    let userName = 'Anonim';
+    const usernamePrompt = document.getElementById('username-prompt');
+    const usernameInput = document.getElementById('username-input');
+    const usernameSubmit = document.getElementById('username-submit');
+    
+    // Bağlantı fix: io() ile tarayıcı adresine bağlanır
+    var socket = io(); 
     var form = document.getElementById('form');
     var input = document.getElementById('input');
     var messages = document.getElementById('messages');
 
-    // Form gönderildiğinde
+    // KULLANICI ADI GİRİŞ MANTIĞI
+    usernameSubmit.addEventListener('click', function() {
+        if (usernameInput.value.trim()) {
+            userName = usernameInput.value.trim();
+            usernamePrompt.style.display = 'none'; 
+            
+            // Kullanıcının katıldığını diğerlerine bildir
+            socket.emit('chat message', `[Sistem]: ${userName} sohbete katıldı.`);
+        }
+    });
+
+    // MESAJ GÖNDERME MANTIĞI
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       if (input.value) {
+        // Kullanıcı adını mesajın önüne ekle
+        const fullMessage = `[${userName}]: ${input.value}`;
+        
         // Mesajı sunucuya gönder
-        socket.emit('chat message', input.value);
-        input.value = ''; // Giriş alanını temizle
+        socket.emit('chat message', fullMessage);
+        
+        input.value = ''; 
       }
     });
 
-    // Sunucudan bir 'chat message' geldiğinde
+    // MESAJ ALMA MANTIĞI
     socket.on('chat message', function(msg) {
       var item = document.createElement('li');
-      item.textContent = msg;
-      messages.appendChild(item); // Mesajı listeye ekle
-      window.scrollTo(0, document.body.scrollHeight); // En alta kaydır
+      
+      // Mesajı ayır (Kullanıcı adı kalın olsun diye)
+      const parts = msg.match(/^\[(.*?)\]: (.*)$/); 
+      if (parts) {
+          const user = parts[1];
+          const text = parts[2];
+          // strong etiketi ile kullanıcı adını kalın yap
+          item.innerHTML = `<strong>[${user}]</strong>: ${text}`; 
+      } else {
+          item.textContent = msg; // Sistem mesajları için
+      }
+
+      messages.appendChild(item); 
+      window.scrollTo(0, document.body.scrollHeight);
     });
   </script>
 </body>
