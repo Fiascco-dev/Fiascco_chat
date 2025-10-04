@@ -11,11 +11,11 @@ const PORT = process.env.PORT || 3000;
 
 // YENİ: Hakaret Filtresi Ayarları (GLOBAL)
 let isProfanityFilterEnabled = true; // Başlangıçta filtre AÇIK
-const profanityList = ['oe','oç','amk','aq','nigga','nigger','aw','orospu','orospu evladı','orospu çocuğu','ananı sikiyim','sikiyim'];
+const profanityList = ['salak', 'aptal', 'mal', 'gerizekalı', 'amk', 'lan', 'aq'];
 const replacement = '***'; 
 
 // YENİ: ADMIN AYARLARI
-const ADMIN_SECRET_KEY = "Fiascco_Admin"; // BURAYI KENDİ ŞİFRENİZLE DEĞİŞTİRİN
+const ADMIN_SECRET_KEY = "admin1234"; // BURAYI KENDİ ŞİFRENİZLE DEĞİŞTİRİN
 // Komutlar: /filtre-ac [şifre] veya /filtre-kapat [şifre]
 
 // Spam Engelleme Ayarları (GLOBAL)
